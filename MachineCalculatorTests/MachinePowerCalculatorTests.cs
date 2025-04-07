@@ -46,10 +46,43 @@ namespace MachineCalculatorTests
             var isEnergySaving = false;
 
             // Act and assert           
-            Exception ex = Assert.Throws<ArgumentException>(() => _powerCalculator.GetPowerConsumption(machineType, duration, isEnergySaving));
-            Assert.Equal("Duration must be greater than zero", ex.Message);
+            ArgumentException ex = Assert.Throws<ArgumentException>(() => _powerCalculator.GetPowerConsumption(machineType, duration, isEnergySaving));
+            Assert.Equal("Invalid machine type", ex.Message);
         }
 
+        [Fact]
+        public void GetPowerConsumption_ForPress_ShouldReturnLinearResult()
+        {
+            // Arrange
+            var machineType = "Press";
+            var duration1 = 5;
+            var duration2 = duration1 * 2;
+            var isEnergySaving = false;
+
+            // Act 
+            var result1 = _powerCalculator.GetPowerConsumption(machineType, duration1, isEnergySaving);
+            var result2 = _powerCalculator.GetPowerConsumption(machineType, duration2, isEnergySaving);
+
+            // Assert
+            Assert.Equal(result1 * 2, result2);
+        }
+
+        [Fact]
+        public void GetPowerConsumption_ForMillingMachine_ShouldReturnLinearResult()
+        {
+            // Arrange
+            var machineType = "Press";
+            var duration1 = 5;
+            var duration2 = duration1 * 2;
+            var isEnergySaving = false;
+
+            // Act 
+            var result1 = _powerCalculator.GetPowerConsumption(machineType, duration1, isEnergySaving);
+            var result2 = _powerCalculator.GetPowerConsumption(machineType, duration2, isEnergySaving);
+
+            // Assert
+            Assert.Equal(result1 * 2, result2);
+        }
 
 
 
