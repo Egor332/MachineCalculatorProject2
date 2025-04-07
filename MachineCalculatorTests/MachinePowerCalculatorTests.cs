@@ -20,19 +20,33 @@ namespace MachineCalculatorTests
             var isEnergySaving = false;
 
             // Act and assert           
-            Assert.Throws<ArgumentException>(() => _powerCalculator.GetPowerConsumption(machineType, duration, isEnergySaving));
+            ArgumentException ex = Assert.Throws<ArgumentException>(() => _powerCalculator.GetPowerConsumption(machineType, duration, isEnergySaving));
+            Assert.Equal("Machine type cannot be empty", ex.Message);
         }
 
         [Fact]
         public void GetPowerConsumption_WithDurationLessThenZero_ShouldTroughException()
         {
             // Arrange
-            var machineType = "aa";
+            var machineType = "Press";
             var duration = -1;
             var isEnergySaving = false;
 
             // Act and assert           
-            Exception ex =  Assert.Throws<ArgumentException>(() => _powerCalculator.GetPowerConsumption(machineType, duration, isEnergySaving));
+            Exception ex =  Assert.Throws<Exception>(() => _powerCalculator.GetPowerConsumption(machineType, duration, isEnergySaving));
+            Assert.Equal("Duration must be greater than zero", ex.Message);
+        }
+
+        [Fact]
+        public void GetPowerConsumption_WithUnknownMachine_ShouldTroughException()
+        {
+            // Arrange
+            var machineType = "Unknown";
+            var duration = 1;
+            var isEnergySaving = false;
+
+            // Act and assert           
+            Exception ex = Assert.Throws<ArgumentException>(() => _powerCalculator.GetPowerConsumption(machineType, duration, isEnergySaving));
             Assert.Equal("Duration must be greater than zero", ex.Message);
         }
 
