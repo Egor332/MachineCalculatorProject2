@@ -1,3 +1,5 @@
+using MachineCalculator;
+
 namespace MachineCalculatorTests
 {
     public class MachinePowerCalculatorTests
@@ -14,14 +16,28 @@ namespace MachineCalculatorTests
         {
             // Arrange
             var machineType = "";
-            var duaration = 2;
+            var duration = 2;
             var isEnergySaving = false;
 
             // Act and assert           
-            Assert.Throws<ArgumentException>(() => _powerCalculator.GetPowerConsumption(machineType, duaration, isEnergySaving));
+            Assert.Throws<ArgumentException>(() => _powerCalculator.GetPowerConsumption(machineType, duration, isEnergySaving));
+        }
+
+        [Fact]
+        public void GetPowerConsumption_WithDurationLessThenZero_ShouldTroughException()
+        {
+            // Arrange
+            var machineType = "aa";
+            var duration = -1;
+            var isEnergySaving = false;
+
+            // Act and assert           
+            Exception ex =  Assert.Throws<ArgumentException>(() => _powerCalculator.GetPowerConsumption(machineType, duration, isEnergySaving));
+            Assert.Equal("Duration must be greater than zero", ex.Message);
         }
 
 
-    
+
+
     }
 }
