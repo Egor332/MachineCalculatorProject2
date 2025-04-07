@@ -1,4 +1,5 @@
 using MachineCalculator;
+using System.ComponentModel.DataAnnotations;
 
 namespace MachineCalculatorTests
 {
@@ -85,7 +86,25 @@ namespace MachineCalculatorTests
         }
 
         [Fact]
-        public void GetPowerConsumption_WithEnergySaving_ShouldReduceConsumptionBy80()
+        public void GetPowerConsumption_ForLathe_ShouldBeLogarithmic()
+        {
+            // Arrange
+            var machineType = "Lathe";
+            var duration = 5;
+            var isEnergySaving = false;
+            var expected = 3.5 * Math.Log10(duration + 1);
+
+            // Act 
+            var result = _powerCalculator.GetPowerConsumption(machineType, duration, isEnergySaving);
+
+            // Assert
+            Assert.Equal(result, duration);
+        }
+
+        [Theory]
+        [InlineData("Press")]
+        [InlineData("Lathe")]
+        public void GetPowerConsumption_WithEnergySaving_ShouldReduceConsumptionBy80(string machineType)
         {
             // Arrange
             var duration = 10;
