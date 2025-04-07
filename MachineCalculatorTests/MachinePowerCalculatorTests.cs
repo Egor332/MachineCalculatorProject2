@@ -84,6 +84,19 @@ namespace MachineCalculatorTests
             Assert.Equal(result1 * 2, result2);
         }
 
+        [Fact]
+        public void GetPowerConsumption_WithEnergySaving_ShouldReduceConsumptionBy80()
+        {
+            // Arrange
+            var duration = 10;
+
+            // Act 
+            var result1 = _powerCalculator.GetPowerConsumption(machineType, duration, true);
+            var result2 = _powerCalculator.GetPowerConsumption(machineType, duration, false);
+
+            // Assert
+            Assert.Equal(result1, result2 * 0.8);
+        }
 
 
     }
