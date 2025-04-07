@@ -26,7 +26,8 @@ namespace MachineCalculator
                     res = 3.5 * Math.Log10(duration + 1);
                     break;
                 default:
-                    throw new Exception("Invalid machine type");
+                    throw new ArgumentException("Invalid machine type");
+                    break;
             }
 
             if (isEnergySaving) return res * 0.8;
