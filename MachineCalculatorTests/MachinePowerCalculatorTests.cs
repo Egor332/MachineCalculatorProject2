@@ -98,7 +98,7 @@ namespace MachineCalculatorTests
             var result = _powerCalculator.GetPowerConsumption(machineType, duration, isEnergySaving);
 
             // Assert
-            Assert.Equal(result, duration);
+            Assert.Equal(result, expected);
         }
 
         [Theory]
